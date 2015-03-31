@@ -25,16 +25,15 @@
 #include <stdint.h>
 #include "bricklib/com/com_common.h"
 
-#define ANALOG_MAX_VOLTAGE 5000
+#define ANALOG_MAX_VOLTAGE 12000
 
 #define I2C_EEPROM_ADDRESS_HIGH 84
 #define I2C_ADDRESS_HIGH 97 //0b1100001
 #define I2C_ADDRESS_LOW 96 //0b1100000
 
-#define FID_SET_VOLTAGE 1
-#define FID_GET_VOLTAGE 2
-#define FID_SET_MODE    3
-#define FID_GET_MODE    4
+#define FID_SET_OUTPUT_VOLTAGE          1
+#define FID_GET_OUTPUT_VOLTAGE          2
+#define FID_GET_INPUT_VOLTAGE           3
 
 typedef struct {
 	MessageHeader header;
@@ -43,36 +42,29 @@ typedef struct {
 typedef struct {
 	MessageHeader header;
 	uint16_t voltage;
-} __attribute__((__packed__)) SetVoltage;
+} __attribute__((__packed__)) SetOutputVoltage;
 
 typedef struct {
 	MessageHeader header;
-} __attribute__((__packed__)) GetVoltage;
+} __attribute__((__packed__)) GetOutputVoltage;
 
 typedef struct {
 	MessageHeader header;
 	uint16_t voltage;
-} __attribute__((__packed__)) GetVoltageReturn;
+} __attribute__((__packed__)) GetOutputVoltageReturn;
 
 typedef struct {
 	MessageHeader header;
-	uint8_t mode;
-} __attribute__((__packed__)) SetMode;
+} __attribute__((__packed__)) GetInputVoltage;
 
 typedef struct {
 	MessageHeader header;
-} __attribute__((__packed__)) GetMode;
+	uint16_t voltage;
+} __attribute__((__packed__)) GetInputVoltageReturn;
 
-typedef struct {
-	MessageHeader header;
-	uint8_t mode;
-} __attribute__((__packed__)) GetModeReturn;
-
-void set_voltage(const ComType com, const SetVoltage *data);
-void get_voltage(const ComType com, const GetVoltage *data);
-void set_mode(const ComType com, const SetMode *data);
-void get_mode(const ComType com, const GetMode *data);
-
+void set_output_voltage(const ComType com, const SetOutputVoltage *data);
+void get_output_voltage(const ComType com, const GetOutputVoltage *data);
+void get_input_voltage(const ComType com, const GetInputVoltage *data);
 
 void invocation(const ComType com, const uint8_t *data);
 void constructor(void);
