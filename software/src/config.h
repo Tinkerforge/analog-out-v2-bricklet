@@ -49,17 +49,12 @@
 
 #define PIN_REF_VOLTAGE (BS->pin1_ad)
 
-#define ADC_TO_VOLTAGE(x) (x*MAX_VOLTAGE/MAX_ADC_VALUE)
-#define VOLTAGE_TO_REF(x) (x*16800/10000) // 6.8k and 10k resistor
-#define ADC_TO_REF(x)     ADC_TO_VOLTAGE(VOLTAGE_TO_REF(x))
-
 typedef struct {
-	uint16_t voltage;
-	uint16_t voltage_ref;
-	uint32_t voltage_sum;
-	uint8_t mode;
-
+	uint32_t last_input_voltage_sum;
+	uint32_t input_voltage_sum;
 	uint8_t counter;
+
+	uint16_t last_output_voltage;
 } BrickContext;
 
 #endif

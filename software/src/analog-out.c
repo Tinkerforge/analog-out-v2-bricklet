@@ -36,10 +36,7 @@ void constructor(void) {
 
 	adc_channel_enable(BS->adc_channel);
 	BC->counter = 0;
-	BC->voltage_ref = ANALOG_MAX_VOLTAGE;
-	BC->voltage_sum = 0;
-	BC->voltage = 0;
-	BC->mode = 1;
+	BC->input_voltage_sum = 0;
 
     PIN_REF_VOLTAGE.type = PIO_INPUT;
     BA->PIO_Configure(&PIN_REF_VOLTAGE, 1);
@@ -53,23 +50,18 @@ void destructor(void) {
 
 void invocation(const ComType com, const uint8_t *data) {
 	switch(((StandardMessage*)data)->header.fid) {
-		case FID_SET_VOLTAGE: {
-			set_voltage(com, (SetVoltage*)data);
+		case FID_SET_OUTPUT_VOLTAGE: {
+			set_output_voltage(com, (SetOutputVoltage*)data);
 			break;
 		}
 
-		case FID_GET_VOLTAGE: {
-			get_voltage(com, (GetVoltage*)data);
+		case FID_GET_OUTPUT_VOLTAGE: {
+			get_output_voltage(com, (GetOutputVoltage*)data);
 			break;
 		}
 
-		case FID_SET_MODE: {
-			set_mode(com, (SetMode*)data);
-			break;
-		}
-
-		case FID_GET_MODE: {
-			get_mode(com, (GetMode*)data);
+		case FID_GET_INPUT_VOLTAGE: {
+			get_input_voltage(com, (GetInputVoltage*)data);
 			break;
 		}
 
@@ -83,65 +75,47 @@ void invocation(const ComType com, const uint8_t *data) {
 void tick(const uint8_t tick_type) {
 	if(tick_type & TICK_TASK_TYPE_CALCULATION) {
 		BC->counter++;
-		BC->voltage_sum += ADC_TO_REF(BA->adc_channel_get_data(BS->adc_channel));
+		BC->input_voltage_sum += BA->adc_channel_get_data(BS->adc_channel);
 		if(BC->counter == 0) {
-			BC->voltage_ref = BC->voltage_sum/256;
-			BC->voltage_sum = 0;
-			logbld("voltage_ref: %d\n\r", BC->voltage_ref);
+			BC->last_input_voltage_sum = BC->input_voltage_sum;
+			BC->input_voltage_sum = 0;
 		}
 	}
 }
 
-void set_voltage(const ComType com, const SetVoltage *data) {
+void set_output_voltage(const ComType com, const SetOutputVoltage *data) {
 	if(data->voltage > ANALOG_MAX_VOLTAGE) {
 		BA->com_return_error(data, sizeof(MessageHeader), MESSAGE_ERROR_CODE_INVALID_PARAMETER, com);
 		return;
 	}
 
-	BC->voltage = data->voltage;
-	BC->mode    = 0;
+	BC->last_output_voltage = data->voltage;
 	update();
 
-	logbli("set_voltage: %d\n\r", data->voltage);
+	logbli("set_output_voltage: %d\n\r", data->voltage);
 
 	BA->com_return_setter(com, data);
 }
 
-void get_voltage(const ComType com, const GetVoltage *data) {
-	GetVoltageReturn gvr;
-	gvr.header        = data->header;
-	gvr.header.length = sizeof(GetVoltageReturn);
-	gvr.voltage       = BC->voltage;
+void get_output_voltage(const ComType com, const GetOutputVoltage *data) {
+	GetOutputVoltageReturn govr;
+	govr.header        = data->header;
+	govr.header.length = sizeof(GetOutputVoltageReturn);
+	govr.voltage       = BC->last_output_voltage;
 
-	BA->send_blocking_with_timeout(&gvr, sizeof(GetVoltageReturn), com);
-	logbli("get_voltage: %d\n\r", gvr.voltage);
+	BA->send_blocking_with_timeout(&govr, sizeof(GetOutputVoltageReturn), com);
+	logbli("get_output_voltage: %d\n\r", govr.voltage);
 }
 
-void set_mode(const ComType com, const SetMode *data) {
-	if(data->mode > 3) {
-		BA->com_return_error(data, sizeof(MessageHeader), MESSAGE_ERROR_CODE_INVALID_PARAMETER, com);
-		return;
-	}
+void get_input_voltage(const ComType com, const GetInputVoltage *data) {
+	GetInputVoltageReturn givr;
+	givr.header        = data->header;
+	givr.header.length = sizeof(GetInputVoltageReturn);
+	// voltage = input*3300*(68+22)/(4095*22*256) = input*75/5824
+	givr.voltage       = BC->last_input_voltage_sum*75/5824;
 
-	BC->mode    = data->mode;
-	BC->voltage = 0;
-	update();
-
-	logbli("set_mode: %d\n\r", data->mode);
-
-	BA->com_return_setter(com, data);
-}
-
-void get_mode(const ComType com, const GetMode *data) {
-	GetModeReturn gmr;
-
-	gmr.header        = data->header;
-	gmr.header.length = sizeof(GetModeReturn);
-	gmr.mode          = BC->mode;
-
-	BA->send_blocking_with_timeout(&gmr, sizeof(GetModeReturn), com);
-
-	logbli("get_mode: %d\n\r", gmr.mode);
+	BA->send_blocking_with_timeout(&givr, sizeof(GetInputVoltageReturn), com);
+	logbli("get_input_voltage: %d\n\r", givr.voltage);
 }
 
 void update(void) {
@@ -153,21 +127,16 @@ void update(void) {
 	}
 
 	const uint8_t port = BS->port - 'a';
+	const uint16_t output_voltage = BC->last_output_voltage*4095/12000;
 
-	BC->voltage = MIN(BC->voltage, BC->voltage_ref);
+	uint8_t byte1 = output_voltage >> 8;
+	uint8_t byte2 = output_voltage & 0xFF;
 
-	uint16_t value = BC->voltage*MAX_ADC_VALUE/BC->voltage_ref;
-	value |= (BC->mode << 12);
-
-	uint8_t byte1 = value >> 8;
-	uint8_t byte2 = value & 0xFF;
+	logbli("update %d\n\r", output_voltage);
 
 	BA->mutex_take(*BA->mutex_twi_bricklet, MUTEX_BLOCKING);
 	BA->bricklet_select(port);
     BA->TWID_Write(BA->twid, address, byte1, 1, &byte2, 1, NULL);
     BA->bricklet_deselect(port);
-
     BA->mutex_give(*BA->mutex_twi_bricklet);
-
-    logbli("update: %d %d\n\r", byte1, byte2);
 }
