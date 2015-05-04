@@ -111,8 +111,8 @@ void get_input_voltage(const ComType com, const GetInputVoltage *data) {
 	GetInputVoltageReturn givr;
 	givr.header        = data->header;
 	givr.header.length = sizeof(GetInputVoltageReturn);
-	// voltage = input*3300*(68+22)/(4095*22*256) = input*75/5824
-	givr.voltage       = BC->last_input_voltage_sum*75/5824;
+	// voltage = input*3300*68/(4095*12*256) = input*935/52416
+	givr.voltage       = BC->last_input_voltage_sum*935/52416;
 
 	BA->send_blocking_with_timeout(&givr, sizeof(GetInputVoltageReturn), com);
 	logbli("get_input_voltage: %d\n\r", givr.voltage);
