@@ -9,7 +9,7 @@ var ao = new Tinkerforge.BrickletAnalogOutV2(UID, ipcon); // Create device objec
 
 ipcon.connect(HOST, PORT,
     function(error) {
-        console.log('Error: '+error);        
+        console.log('Error: '+error);
     }
 ); // Connect to brickd
 // Don't use device before ipcon is connected

@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[      3427,         94]
-NotebookOptionsPosition[      2995,         73]
-NotebookOutlinePosition[      3333,         88]
-CellTagsIndexPosition[      3290,         85]
+NotebookDataLength[      4382,        104]
+NotebookOptionsPosition[      3956,         83]
+NotebookOutlinePosition[      4288,         98]
+CellTagsIndexPosition[      4245,         95]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -46,7 +46,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"ipcon", "@", 
    RowBox[{"Connect", "[", 
-    RowBox[{"host", ",", "port"}], "]"}]}], "\n", "\[IndentingNewLine]", 
+    RowBox[{"host", ",", "port"}], "]"}]}], "\[IndentingNewLine]", "\n", 
   RowBox[{"(*", " ", 
    RowBox[{"Set", " ", "a", " ", "voltage", " ", "of", " ", "3.3", "V"}], " ",
     "*)"}]}], "\n", 
@@ -58,22 +58,32 @@ Cell[BoxData[{
    RowBox[{"Clean", " ", "up"}], " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{"ipcon", "@", 
   RowBox[{"Disconnect", "[", "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"ReleaseNETObject", "[", "al", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ReleaseNETObject", "[", "ao", "]"}], "\[IndentingNewLine]", 
  RowBox[{"ReleaseNETObject", "[", "ipcon", "]"}]}], "Input",
- CellChangeTimes->CompressedData["
-1:eJwdzU0ow3EcBvB/mndx8bKUhchhEcZlrW1y2A6GHGZFTfP2rw0Li0QptxE2
-YjNbc5ilHCQyQi21siIvGZa3I//GQUYT8nt+h2+feup5vgW6vqbOOIZh8sjB
-M+17lf2CqynXVVbDaVVYC4tfTnTQ/2fphsrHtX543ygegoVCmRXyEm6WoSgi
-csINQdboEnHSM0Dtmg1NUD84qt63EnET03d3XuGjPS0KXQbuC6qtrT/w+Zql
-Vix6C1eQCxxFsJfPE8JoqboMskquGgYcMeqDa8wKjYeKOdicY689wP/am3qo
-cJ6qYeVdqwYumM2SI6LKciaFvdF8Jog9nzYD2qfbs+H2bzIfJvaIb9lL0mvO
-DMOgbJ+Dhs0raiBlb15P5N4OHVAYSfJA9snmhfLYcIuTKNmSd8CZklwjHGMb
-qGJTnQkea9qoqbbPc+ieCoSgNOV30E/8Xl81wXibewQqNKXj8B+e8w2D
-  "]]
+ CellChangeTimes->{{3.600075175574196*^9, 3.600075177574486*^9}, {
+   3.600075518821967*^9, 3.60007554243471*^9}, {3.600075580562348*^9, 
+   3.600075669308506*^9}, {3.600075705822371*^9, 3.600075921974015*^9}, {
+   3.6000760067507343`*^9, 3.600076009622583*^9}, {3.600077792659996*^9, 
+   3.600077795613958*^9}, {3.600077854705127*^9, 3.600077855342334*^9}, {
+   3.600090981053762*^9, 3.6000909897413397`*^9}, {3.600091048393783*^9, 
+   3.600091071325759*^9}, {3.6000911068928633`*^9, 3.6000911072763557`*^9}, {
+   3.600091413237206*^9, 3.600091428847453*^9}, {3.600091480127982*^9, 
+   3.60009150669311*^9}, {3.6000915673213387`*^9, 3.6000915678002653`*^9}, {
+   3.600092307925643*^9, 3.600092314241997*^9}, {3.600149020784099*^9, 
+   3.6001491107582273`*^9}, {3.600149174456699*^9, 3.6001491869018793`*^9}, {
+   3.600161252329417*^9, 3.600161270517737*^9}, {3.6001751050299597`*^9, 
+   3.6001752269913054`*^9}, {3.600175283111157*^9, 3.60017529631222*^9}, {
+   3.600500425825809*^9, 3.6005004326356916`*^9}, {3.6005005658827868`*^9, 
+   3.60050056667803*^9}, {3.600506021813815*^9, 3.6005060779666643`*^9}, {
+   3.600506152278829*^9, 3.6005061727773933`*^9}, {3.600607963780426*^9, 
+   3.6006080340220013`*^9}, {3.600608128817329*^9, 3.600608130481505*^9}, {
+   3.60060817038931*^9, 3.600608171010838*^9}, {3.60060891170606*^9, 
+   3.600608950204666*^9}, {3.6006818959075003`*^9, 3.6006819012086153`*^9}, {
+   3.600681941018557*^9, 3.600681985417026*^9}, 3.643612240463328*^9}]
 },
 WindowSize->{1521, 867},
-WindowMargins->{{333, Automatic}, {53, Automatic}},
-FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+WindowMargins->{{333, 66}, {53, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -88,7 +98,7 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[400, 13, 604, 11, 55, "Input"],
-Cell[1007, 26, 1984, 45, 363, "Input"]
+Cell[1007, 26, 2945, 55, 363, "Input"]
 }
 ]
 *)

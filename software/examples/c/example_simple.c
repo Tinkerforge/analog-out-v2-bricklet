@@ -14,7 +14,7 @@ int main() {
 
 	// Create device object
 	AnalogOutV2 ao;
-	analog_out_v2_create(&ao, UID, &ipcon); 
+	analog_out_v2_create(&ao, UID, &ipcon);
 
 	// Connect to brickd
 	if(ipcon_connect(&ipcon, HOST, PORT) < 0) {
