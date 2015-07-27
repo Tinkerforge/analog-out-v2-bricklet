@@ -1,5 +1,5 @@
-import com.tinkerforge.BrickletAnalogOutV2;
 import com.tinkerforge.IPConnection;
+import com.tinkerforge.BrickletAnalogOutV2;
 
 public class ExampleSimple {
 	private static final String HOST = "localhost";

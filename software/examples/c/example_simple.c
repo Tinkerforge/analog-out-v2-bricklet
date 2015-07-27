@@ -23,7 +23,7 @@ int main() {
 	}
 	// Don't use device before ipcon is connected
 
-	// Set a voltage of 3.3V
+	// Set output voltage to 3.3V
 	analog_out_v2_set_output_voltage(&ao, 3300);
 
 	printf("Press key to exit\n");
