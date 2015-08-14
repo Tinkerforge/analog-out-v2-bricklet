@@ -35,7 +35,7 @@ begin
   ipcon.Connect(HOST, PORT);
   { Don't use device before ipcon is connected }
 
-  { Set a voltage of 3.3V }
+  { Set output voltage to 3.3V }
   ao.SetOutputVoltage(3300);
 
   WriteLn('Press key to exit');
