@@ -19,4 +19,3 @@ $ao->set_output_voltage(3300);
 print "Press any key to exit...\n";
 <STDIN>;
 $ipcon->disconnect();
-
