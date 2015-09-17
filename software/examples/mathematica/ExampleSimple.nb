@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[      4382,        104]
-NotebookOptionsPosition[      3956,         83]
-NotebookOutlinePosition[      4288,         98]
-CellTagsIndexPosition[      4245,         95]
+NotebookDataLength[      4270,        105]
+NotebookOptionsPosition[      3844,         84]
+NotebookOutlinePosition[      4176,         99]
+CellTagsIndexPosition[      4133,         96]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,40 +25,40 @@ Cell[BoxData[{
    3.600608117803465*^9}, 3.6006857310841503`*^9}],
 
 Cell[BoxData[{
- RowBox[{"host", "=", "\"\<localhost\>\""}], "\[IndentingNewLine]", 
- RowBox[{"port", "=", "4223"}], "\[IndentingNewLine]", 
+ RowBox[{"host", "=", "\"\<localhost\>\""}], "\n", 
+ RowBox[{"port", "=", "4223"}], "\n", 
  RowBox[{
-  RowBox[{"uid", "=", "\"\<amb\>\""}], 
-  RowBox[{"(*", " ", 
-   RowBox[{"Change", " ", "to", " ", "your", " ", "UID"}], " ", "*)"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]", 
-  RowBox[{"(*", " ", 
+  RowBox[{"uid", "=", "\"\<XYZ\>\""}], 
+  RowBox[{"(*", 
+   RowBox[{"Change", " ", "to", " ", "your", " ", "UID"}], "*)"}], "\n", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
    RowBox[{
    "Create", " ", "IPConnection", " ", "and", " ", "device", " ", "object"}], 
-   " ", "*)"}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{"ipcon", "=", 
   RowBox[{"NETNew", "[", "\"\<Tinkerforge.IPConnection\>\"", "]"}]}], "\n", 
  RowBox[{"ao", "=", 
   RowBox[{"NETNew", "[", 
    RowBox[{
    "\"\<Tinkerforge.BrickletAnalogOutV2\>\"", ",", "uid", ",", "ipcon"}], 
-   "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\n", 
  RowBox[{
   RowBox[{"ipcon", "@", 
    RowBox[{"Connect", "[", 
-    RowBox[{"host", ",", "port"}], "]"}]}], "\[IndentingNewLine]", "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Set", " ", "a", " ", "voltage", " ", "of", " ", "3.3", "V"}], " ",
-    "*)"}]}], "\n", 
+    RowBox[{"host", ",", "port"}], "]"}]}], "\n", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Set", " ", "output", " ", "voltage", " ", "to", " ", "3.3", "V"}],
+    "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"ao", "@", 
-   RowBox[{"SetOutputVoltage", "[", "3300", "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"SetOutputVoltage", "[", "3300", "]"}]}], "\n", 
   "\[IndentingNewLine]", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Clean", " ", "up"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Clean", " ", "up"}], "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{"ipcon", "@", 
-  RowBox[{"Disconnect", "[", "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"ReleaseNETObject", "[", "ao", "]"}], "\[IndentingNewLine]", 
+  RowBox[{"Disconnect", "[", "]"}]}], "\n", 
+ RowBox[{"ReleaseNETObject", "[", "ao", "]"}], "\n", 
  RowBox[{"ReleaseNETObject", "[", "ipcon", "]"}]}], "Input",
  CellChangeTimes->{{3.600075175574196*^9, 3.600075177574486*^9}, {
    3.600075518821967*^9, 3.60007554243471*^9}, {3.600075580562348*^9, 
@@ -79,10 +79,11 @@ Cell[BoxData[{
    3.6006080340220013`*^9}, {3.600608128817329*^9, 3.600608130481505*^9}, {
    3.60060817038931*^9, 3.600608171010838*^9}, {3.60060891170606*^9, 
    3.600608950204666*^9}, {3.6006818959075003`*^9, 3.6006819012086153`*^9}, {
-   3.600681941018557*^9, 3.600681985417026*^9}, 3.643612240463328*^9}]
+   3.600681941018557*^9, 3.600681985417026*^9}, 3.643612240463328*^9, 
+   3.65146832305436*^9}]
 },
 WindowSize->{1521, 867},
-WindowMargins->{{333, 66}, {53, Automatic}},
+WindowMargins->{{332, 65}, {52, Automatic}},
 FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
 StyleDefinitions->"Default.nb"
 ]
@@ -98,7 +99,7 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[400, 13, 604, 11, 55, "Input"],
-Cell[1007, 26, 2945, 55, 363, "Input"]
+Cell[1007, 26, 2833, 56, 363, "Input"]
 }
 ]
 *)
