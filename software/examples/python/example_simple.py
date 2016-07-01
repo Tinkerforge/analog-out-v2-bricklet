@@ -3,7 +3,7 @@
 
 HOST = "localhost"
 PORT = 4223
-UID = "XYZ" # Change to your UID
+UID = "XYZ" # Change XYZ to the UID of your Analog Out Bricklet 2.0
 
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_analog_out_v2 import BrickletAnalogOutV2
